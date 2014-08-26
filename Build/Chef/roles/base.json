@@ -1,0 +1,16 @@
+{
+	"name": "base",
+	"default_attributes": {
+		"chef_client": {
+			"interval": 60
+		}
+	},
+	"override_attributes": { },
+	"json_class": "Chef::Role",
+	"description": "Base role for all nodes",
+	"chef_type": "role",
+	"run_list": [
+		"recipe[chef-solo-search]",
+		"recipe[techdivision-base]"
+	]
+}
