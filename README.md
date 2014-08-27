@@ -7,6 +7,7 @@ Steps for using the Vagrant setup:
 
 - install Vagrant
 - install Librarian Chef
+- vagrant plugin install vagrant-omnibus
 - cd Build/Chef/; librarian-chef update
 - cd ../../; vagrant up
 
