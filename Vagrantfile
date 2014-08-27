@@ -48,6 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "Configuration/PackageStates.php",
       "Configuration/Production/" + SUBCONTEXT,
       "Configuration/Development/" + SUBCONTEXT,
+      "Configuration/Testing/Behat",
       "Data/Sessions/**",
       "Data/Temporary/**",
       "Data/Persistent/**",

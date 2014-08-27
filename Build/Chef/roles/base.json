@@ -10,6 +10,7 @@
 	"description": "Base role for all nodes",
 	"chef_type": "role",
 	"run_list": [
+		"recipe[apt]",
 		"recipe[chef-solo-search]",
 		"recipe[techdivision-base]"
 	]
