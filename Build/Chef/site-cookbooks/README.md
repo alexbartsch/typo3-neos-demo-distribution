@@ -1,1 +1,0 @@
-This file only exists as a place holder for being able to check in site-cookbooks into Git.
