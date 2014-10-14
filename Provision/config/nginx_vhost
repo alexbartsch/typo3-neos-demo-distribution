@@ -1,53 +1,58 @@
 server {
-    listen 80;
-    server_name vkard.io.dev;
+	listen              *:80;
+	server_name         neos.dev;
+	root                /var/www/Web;
+	autoindex           off;
 
-    root /var/www/app/;
-    index index.php index.html;
+	access_log          /var/log/nginx/neos.dev.access.log;
+	error_log           /var/log/nginx/neos.dev.error.log;
 
-    # Important for VirtualBox
-    sendfile off;
+	index               index.php index.html;
 
-    error_log /var/log/nginx/app.error.log warn;
+	location ~ /\. {
+		access_log      off;
+		log_not_found   off;
+		deny            all;
+	}
 
-    location / {
-        try_files $uri $uri/ =404;
-    }
+	location ~ "^/_Resources/Persistent/" {
+		access_log off;
+		log_not_found off;
+		expires max;
 
-    location ~* \.php {
-        include fastcgi_params;
+		rewrite "(.{40})/.+\.(.+)" /_Resources/Persistent/$1.$2 break;
+		rewrite "([a-z0-9]+/(.+/)?[a-f0-9]{40})/.+\.(.+)" /_Resources/Persistent/$1.$2 break;
+	}
 
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+	location ~ "^/_Resources/" {
+		access_log off;
+		log_not_found off;
+		expires max;
+		break;
+	}
 
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_cache off;
-        fastcgi_index index.php;
-    }
-}
+	location / {
+		rewrite ".*" /index.php last;
+	}
 
-server {
-    listen 80;
-    server_name api.vkard.io.dev;
+	try_files $uri $uri/ /index.php?$args;
 
-    root /var/www/api/;
-    index index.php index.html;
+	location ~ \.php$ {
+		include                      fastcgi_params;
+		fastcgi_pass                 127.0.0.1:9000;
+		fastcgi_index                index.php;
+		fastcgi_param                FLOW_CONTEXT       Development;
+		fastcgi_param                FLOW_REWRITEURLS   1;
+		fastcgi_split_path_info      ^(.+\.php)(.*)$;
+		fastcgi_param                SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+		fastcgi_param                PATH_INFO $fastcgi_path_info;
+		fastcgi_intercept_errors     on;
 
-    # Important for VirtualBox
-    sendfile off;
+		fastcgi_buffer_size          128k;
+		fastcgi_buffers              256 16k;
+		fastcgi_busy_buffers_size    256k;
+		fastcgi_temp_file_write_size 256k;
+	}
 
-    error_log /var/log/nginx/api.error.log warn;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    location ~* \.php {
-        include fastcgi_params;
-
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_cache off;
-        fastcgi_index index.php;
-    }
+	sendfile off;
 }

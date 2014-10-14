@@ -1,10 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-PROJECT_NAME = "neos.demo.typo3.org.vm"
+PROJECT_NAME = "neos.dev"
 
 Vagrant.configure("2") do |config|
 	config.vm.box = "ubuntu/trusty64"
+
+	config.vm.hostname = PROJECT_NAME + ".vm"
 
 	# Forward ports
 	config.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true
