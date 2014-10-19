@@ -1,0 +1,6 @@
+name              'typo3neos'
+maintainer        'Alex Bartsch'
+maintainer_email  'mail@alexbartsch.de'
+license           'Apache 2.0'
+description       'Installs and configures TYPO3 Neos'
+version           '1.0.0'

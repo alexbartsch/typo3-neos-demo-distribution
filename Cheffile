@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'nginx', :git => "https://github.com/alexbartsch/chef-nginx"
+
+cookbook 'php-fpm', '~> 0.7.0'
+
+cookbook 'database', '~> 2.3.0'
+
+cookbook 'composer', '~> 1.0.5'
