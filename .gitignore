@@ -3,3 +3,5 @@
 /cookbooks/
 /tmp/
 /htdocs/
+
+Cheffile.lock
