@@ -1,6 +1,7 @@
 /.idea/
 /.vagrant/
-/cookbooks/
+/cookbooks/*
+!cookbooks/nginx
 /tmp/
 /htdocs/
 
