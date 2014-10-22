@@ -6,17 +6,38 @@ Vagrant.configure("2") do |config|
 
 	config.vm.hostname = "neos.dev"
 
-	config.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true
-	config.vm.network :forwarded_port, guest: 3306, host: 3306, auto_correct: true
+	#config.vm.network "public_network"
+
+	config.vm.network "private_network", ip: "10.0.0.3"
 
 	config.vm.provider "virtualbox" do |vb|
-		vb.name = "TYPO3 Neos Dev"
-		vb.customize ["modifyvm", :id, "--memory", "2048"]
+		vb.customize ["modifyvm", :id, "--memory", "4096"]
 		vb.customize ["modifyvm", :id, "--cpus", 4]
 	end
 
 	config.vm.synced_folder ".", "/vagrant", disabled: true
-	config.vm.synced_folder ".", "/var/www", create: true, group: "www-data", owner: "www-data"
+
+	# share site folder into releases folder
+	config.vm.synced_folder "htdocs", "/var/www",
+		type: "rsync",
+		group: "www-data",
+		rsync__args: ["--verbose", "--archive", "--delete", "-z", "--perms", "--chmod=Dg+s,Dg+rwx"],
+		rsync__exclude: [
+			".git/",
+			".idea/",
+			".DS_Store",
+			"Configuration/PackageStates.php",
+			#"Configuration/Production/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
+			#"Configuration/Development/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
+			"Configuration/Testing/Behat",
+			"Data/Sessions/**",
+			"Data/Temporary/**",
+			"Data/Persistent/**",
+			"Data/Surf/**",
+			"Data/Logs/**",
+			"Web/_Resources/Persistent",
+			"Web/_Resources/Static"
+		]
 
 	config.ssh.forward_agent = true
 

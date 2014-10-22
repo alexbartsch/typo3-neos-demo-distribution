@@ -1,14 +1,22 @@
-TYPO3 Neos Demo Distribution
+TYPO3 Neos and Vagrant
 ============================
 
-A TYPO3 Neos distribution which contains the Neos demo website and a Vagrant set up for development.
+A Vagrant setup with TYPO3 Neos and the Neos demo website for development.
 
 Steps for using the Vagrant setup:
 
-- install Vagrant
-- install Librarian Chef
-- vagrant plugin install vagrant-omnibus
-- cd Build/Chef/; librarian-chef update
-- cd ../../; vagrant up
+## Install TYPO3 Neos ##
+- `cd htdocs`
+- `composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1`
+- `cd ..`
 
-Work in progress. Stay tuned.
+## Setup Vagrant ##
+- install Vagrant
+- `vagrant plugin install vagrant-omnibus`
+
+- add line `10.0.0.3	neos.dev` to `/etc/hosts`
+
+## Create VM ##
+- `vagrant up`
+
+- go to `http://neos.dev/setup` (Database "neos" - User: "root", Pass "root")

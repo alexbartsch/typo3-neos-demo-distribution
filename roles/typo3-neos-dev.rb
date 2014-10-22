@@ -5,6 +5,12 @@ override_attributes(
 		"default_site_enabled" => false
 	},
 
+	"php" => {
+		"directives" => {
+			"date.timezone" => "Europe/Berlin"
+		}
+	},
+
 	"php-fpm" => {
     	"pools" => {
     		"default" => {
@@ -12,7 +18,10 @@ override_attributes(
     		},
     		"www" => {
     			:enable => "true",
-    			:listen => "/var/run/php5-fpm.sock"
+    			:listen => "/var/run/php5-fpm.sock",
+    			:php_options => {
+    				"php_admin_value[date.timezone]" => "Europe/Berlin"
+    			}
     		}
     	}
     },

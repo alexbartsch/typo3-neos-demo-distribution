@@ -7,13 +7,17 @@
 # Setup vHost
 #
 
-nginx_site "neos.dev" do
-  host "neos.dev"
-  root "/var/www/htdocs"
-  index "index.php index.html index.htm"
-  location "try_files $uri $uri/ /index.php?$query_string"
-  phpfpm true
-  action [:create, :enable]
+template "#{node.nginx.dir}/sites-available/neos.dev" do
+  source "typo3-neos.erb"
+  mode "0644"
+  variables(
+    :listen 	=> 80,
+    :host 		=> "neos.dev",
+    :root 		=> "/var/www/TYPO3-Neos-1.1/Web",
+    :index 		=> "index.php index.html",
+    :location	=> "rewrite \".*\" /index.php last",
+	:phpfpm		=> true
+  )
 end
 
 #
@@ -30,8 +34,43 @@ mysql_database 'neos' do
 end
 
 #
+# Add vagrant user to www-data group
+#
+
+group "www-data" do
+  action :modify
+  members "vagrant"
+  append true
+end
+
+#
 # Setup TYPO3 Neos
 #
 
+directory "/var/www" do
+  owner "www-data"
+  group "www-data"
+  mode "0755"
+  action :create
+end
 
+execute "create-typo3-neos-project" do
+  cwd "/var/www"
+  command "composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1"
+  not_if { ::File.exists?("/var/www/TYPO3-Neos-1.1/Web/index.php")}
+  action :run
+end
 
+execute "set-typo3-neos-file-permissions" do
+  cwd "/var/www/TYPO3-Neos-1.1"
+  command "./flow core:setfilepermissions vagrant www-data www-data"
+  action :run
+end
+
+#
+# Restart Nginx
+#
+
+nginx_site "neos.dev" do
+  action :enable
+end

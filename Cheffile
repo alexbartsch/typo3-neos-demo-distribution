@@ -9,4 +9,4 @@ cookbook 'php-fpm', '~> 0.7.0'
 
 cookbook 'database', '~> 2.3.0'
 
-cookbook 'composer', '~> 1.0.5'
+cookbook 'composer', '~> 1.0.6'
