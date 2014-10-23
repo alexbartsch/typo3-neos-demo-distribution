@@ -54,19 +54,6 @@ directory "/var/www" do
   action :create
 end
 
-execute "create-typo3-neos-project" do
-  cwd "/var/www"
-  command "composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1"
-  not_if { ::File.exists?("/var/www/TYPO3-Neos-1.1/Web/index.php")}
-  action :run
-end
-
-execute "set-typo3-neos-file-permissions" do
-  cwd "/var/www/TYPO3-Neos-1.1"
-  command "./flow core:setfilepermissions vagrant www-data www-data"
-  action :run
-end
-
 #
 # Restart Nginx
 #

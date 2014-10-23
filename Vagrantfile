@@ -1,12 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+PROJECT_NAME = "neos.dev"
+
 Vagrant.configure("2") do |config|
 	config.vm.box = "ubuntu/trusty64"
 
-	config.vm.hostname = "neos.dev"
-
-	#config.vm.network "public_network"
+	config.vm.hostname = PROJECT_NAME
 
 	config.vm.network "private_network", ip: "10.0.0.3"
 
@@ -17,7 +17,6 @@ Vagrant.configure("2") do |config|
 
 	config.vm.synced_folder ".", "/vagrant", disabled: true
 
-	# share site folder into releases folder
 	config.vm.synced_folder "htdocs", "/var/www",
 		type: "rsync",
 		group: "www-data",
@@ -27,8 +26,8 @@ Vagrant.configure("2") do |config|
 			".idea/",
 			".DS_Store",
 			"Configuration/PackageStates.php",
-			#"Configuration/Production/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
-			#"Configuration/Development/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
+			"Configuration/Production/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
+			"Configuration/Development/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
 			"Configuration/Testing/Behat",
 			"Data/Sessions/**",
 			"Data/Temporary/**",
