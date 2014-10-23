@@ -4,6 +4,22 @@
 #
 
 #
+# Install php modules
+#
+
+package "php5-mysql" do
+  action :install
+end
+
+package "mcrypt" do
+  action :install
+end
+
+package "php5-mcrypt" do
+  action :install
+end
+
+#
 # Setup vHost
 #
 
@@ -30,6 +46,7 @@ mysql_database 'neos' do
     :username => 'root',
     :password => node['mysql']['server_root_password']
   )
+  encoding 'UTF8'
   action :create
 end
 
