@@ -21,7 +21,7 @@ A Vagrant setup with TYPO3 Neos and the Neos demo website for development.
 - `cd htdocs`
 - `composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1`
 - `cd ..`
-- vagrant rsync
+- `vagrant rsync`
 
 ### Setup TYPO3 Neos ###
 - go to `http://neos.dev/setup` (Database "neos" - User: "root", Pass "root")
