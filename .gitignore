@@ -3,6 +3,5 @@
 /cookbooks/*
 !cookbooks/nginx
 /tmp/
-/htdocs/
 
 Cheffile.lock
