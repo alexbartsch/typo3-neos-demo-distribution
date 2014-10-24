@@ -35,15 +35,12 @@ end
 # Setup vHost
 #
 
-template "#{node.nginx.dir}/sites-available/neos.dev" do
-  source "typo3-neos.erb"
+template "#{node.nginx.dir}/sites-available/" + PROJECT_NAME do
+  source PROJECT_TYPE + ".erb"
   mode "0644"
   variables(
     :listen 	=> 80,
-    :host 		=> "neos.dev",
-    :root 		=> "/var/www/TYPO3-Neos-1.1/Web",
-    :index 		=> "index.php index.html",
-    :location	=> "rewrite \".*\" /index.php last",
+    :host 		=> PROJECT_NAME,
 	:phpfpm		=> true
   )
 end
@@ -52,7 +49,7 @@ end
 # Setup database
 #
 
-mysql_database 'neos' do
+mysql_database PROJECT_NAME_C do
   connection(
     :host     => 'localhost',
     :username => 'root',
@@ -87,6 +84,6 @@ end
 # Restart Nginx
 #
 
-nginx_site "neos.dev" do
+nginx_site PROJECT_NAME do
   action :enable
 end

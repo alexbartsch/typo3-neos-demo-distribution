@@ -1,12 +1,28 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-PROJECT_NAME = "neos.dev"
+#
+# Load config from htdocs
+#
+
+require 'yaml'
+
+current_dir    = File.dirname(File.expand_path(__FILE__))
+config         = YAML.load_file("#{current_dir}/htdocs/vagrant_config.yaml")
+vagrant_config = config['config']
+
+PROJECT_NAME   = vagrant_config['project']['name']
+PROJECT_NAME_C = PROJECT_NAME.gsub(".", "").gsub("-", "").capitalize
+PROJECT_TYPE   = vagrant_config['project']['type']
+
+#
+# Vagrant setup
+#
 
 Vagrant.configure("2") do |config|
 	config.vm.box = "ubuntu/trusty64"
 
-	config.vm.hostname = PROJECT_NAME
+	config.vm.hostname = PROJECT_NAME + ".dev"
 
 	config.vm.network "private_network", ip: "10.0.0.3"
 
@@ -26,8 +42,8 @@ Vagrant.configure("2") do |config|
 			".idea/",
 			".DS_Store",
 			"Configuration/PackageStates.php",
-			"Configuration/Production/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
-			"Configuration/Development/" + PROJECT_NAME.gsub(".", "").capitalize + "vm",
+			"Configuration/Production/" + PROJECT_NAME_C,
+			"Configuration/Development/" + PROJECT_NAME_C,
 			"Configuration/Testing/Behat",
 			"Data/Sessions/**",
 			"Data/Temporary/**",

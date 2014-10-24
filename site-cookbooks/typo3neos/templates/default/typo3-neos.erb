@@ -1,10 +1,10 @@
 server {
   listen 		<%= @listen %>;
   server_name 	<%= @host %>;
-  root 			<%= @root %>;
+  root 			/var/www/Web;
   autoindex		off;
 
-  index 		<%= @index %>;
+  index 		index.php index.html;
 
   location ~ /\. {
     access_log		off;
@@ -29,7 +29,7 @@ server {
   }
 
   location / {
-    <%= @location %>;
+    rewrite ".*" /index.php last;
   }
 
   try_files $uri $uri/ /index.php?$args;

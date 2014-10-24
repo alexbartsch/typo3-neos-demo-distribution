@@ -20,11 +20,10 @@ A Vagrant setup with TYPO3 Neos and the Neos demo website for development.
 ### Get TYPO3 Neos ###
 - `cd htdocs`
 - `composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1`
-- `cd ..`
-- `vagrant rsync`
 
 ### Setup TYPO3 Neos ###
-- go to `http://neos.dev/setup` (Database "neos" - User: "root", Pass "root")
+- add `TYPO3:Flow:core:subRequestPhpIniPathAndFilename: '/etc/php5/fpm/php.ini'` to your global Settings.yaml
+- go to `http://neos.dev/setup` and use your capitalized project name as your database and "root" for user and password
 
 ## Start development ##
 My best practice is to use PhpStorm with "Deployment" set up an "Automatic Upload" enabled.
