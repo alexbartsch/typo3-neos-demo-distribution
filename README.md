@@ -1,4 +1,4 @@
-TYPO3 Neos and Vagrant
+Vagrant and TYPO3 Neos
 ============================
 
 A Vagrant setup with TYPO3 Neos and the Neos demo website for development.
