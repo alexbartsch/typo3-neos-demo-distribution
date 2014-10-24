@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: typo3neos
+# Cookbook Name:: webserver
 # Recipe:: default
 #
 
