@@ -1,7 +1,7 @@
 /.idea/
 /.vagrant/
-/cookbooks/*
-!cookbooks/nginx
+/cookbooks/
 /tmp/
+/htdocs/
 
 Cheffile.lock
