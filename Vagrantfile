@@ -62,6 +62,6 @@ Vagrant.configure("2") do |config|
 		chef.roles_path = "roles"
 		chef.cookbooks_path = ["site-cookbooks", "cookbooks"]
 
-		chef.add_role "typo3-neos-dev"
+		chef.add_role "webserver"
 	end
 end
