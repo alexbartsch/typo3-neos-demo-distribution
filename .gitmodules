@@ -1,3 +1,6 @@
 [submodule "cookbooks/nginx"]
 	path = cookbooks/nginx
 	url = git@github.com:alexbartsch/chef-nginx.git
+[submodule "htdocs/TYPO3-Neos-1.1"]
+	path = htdocs/TYPO3-Neos-1.1
+	url = git@gitlab.zerotalent.de:AlexBartsch/praxis-schellin-de.git
