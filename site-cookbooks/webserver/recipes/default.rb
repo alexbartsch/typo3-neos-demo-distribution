@@ -35,12 +35,12 @@ end
 # Setup vHost
 #
 
-template "#{node.nginx.dir}/sites-available/" + PROJECT_NAME do
-  source PROJECT_TYPE + ".erb"
+template "#{node.nginx.dir}/sites-available/" + node['project']['name'] do
+  source node['project']['type'] + ".erb"
   mode "0644"
   variables(
     :listen 	=> 80,
-    :host 		=> PROJECT_NAME,
+    :host 		=> node['project']['name'] + ".dev",
 	:phpfpm		=> true
   )
 end
@@ -49,7 +49,7 @@ end
 # Setup database
 #
 
-mysql_database PROJECT_NAME_C do
+mysql_database node['project']['nameClean'] do
   connection(
     :host     => 'localhost',
     :username => 'root',
@@ -84,6 +84,6 @@ end
 # Restart Nginx
 #
 
-nginx_site PROJECT_NAME do
+nginx_site node['project']['name'] do
   action :enable
 end
