@@ -46,5 +46,5 @@ run_list(
 	"recipe[mysql::server]",
 	"recipe[database::mysql]",
 
-	"recipe[typo3neos]"
+	"recipe[webserver]"
 )
