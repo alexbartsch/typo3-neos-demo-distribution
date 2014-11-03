@@ -1,31 +1,59 @@
-Vagrant and TYPO3 Neos
-============================
+# Vagrant Development Environment
 
-A Vagrant setup with TYPO3 Neos and the Neos demo website for development.
+This is my base development environment for some of my projects.
 
-## Requirements on your host machine ##
+__Requirements on your host machine__
+
 - vagrant
 - composer
 
-## Steps for using this ##
+## Virtual Machine
 
-### Install Vagrant plugins ###
-- `vagrant plugin install vagrant-omnibus`
+1. `vagrant plugin install vagrant-omnibus`
+2. add line `10.0.0.3	example.com.dev` to your `/etc/hosts`
+3. `vagrant up`
 
-- add line `10.0.0.3	neos.dev` to `/etc/hosts`
+Now you have a clean dev environment. Please notice that the VM needs a `htdocs` folder to bind the nginx document root on.
 
-### Create VM ###
-- `vagrant up`
+You can create it with mkdir dirname` or add your git project as submodule. Last one is recommended.
 
-### Get TYPO3 Neos ###
-- `cd htdocs`
-- `composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1`
+One more thing needed is an config file `vagrant_config.json` inside of the htdocs folder. 
+This is where chef get's it's informations from.
 
-### Setup TYPO3 Neos ###
-- add `TYPO3:Flow:core:subRequestPhpIniPathAndFilename: '/etc/php5/fpm/php.ini'` to your global Settings.yaml
-- go to `http://neos.dev/setup` and use your capitalized project name as your database and "root" for user and password
+__vagrant_config.json__
 
-## Start development ##
+```javascript
+{
+	"type": 		"typo3-neos", 
+    // Defines what type of Open-Source System you want to install.
+
+	"name": 		"example.com",
+   // Domain-Name of your project.
+    
+	"nameClean":	"exampleCom"
+    // Clean Domain-Name of your project, used as e.g. database name.
+}
+```
+
+## Install Open-Source Software #
+
+This setup belongs to your defined `type` from your `vagrant_config.json`.
+
+### TYPO3 Neos ###
+1. In your `vagrant_config.json` set `type` to `typo3-neos`
+2. `cd htdocs`
+3. `composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1`
+4. add 
+```
+  TYPO3:
+    Flow:
+      core:
+        subRequestPhpIniPathAndFilename: '/etc/php5/fpm/php.ini'
+``` 
+to your global Settings.yaml
+- go to `http://example.com.dev/setup` and use your capitalized project name as your database and "root" for user and password
+
+## Development #
 My best practice is to use PhpStorm with "Deployment" set up an "Automatic Upload" enabled.
 
 ### Deployment settings ###

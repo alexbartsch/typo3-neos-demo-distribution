@@ -1,5 +1,6 @@
 {
+	"type": 		"typo3-neos",
+
 	"name": 		"example.com",
-	"nameClean":	"exampleCom",
-	"type": 		"typo3-neos"
+	"nameClean":	"exampleCom"
 }
