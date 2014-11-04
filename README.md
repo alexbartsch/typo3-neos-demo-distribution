@@ -15,7 +15,7 @@ __Requirements on your host machine__
 
 Now you have a clean dev environment. Please notice that the VM needs a `htdocs` folder to bind the nginx document root on.
 
-You can create it with mkdir dirname` or add your git project as submodule. Last one is recommended.
+You can create it with `mkdir dirname` or add your git project as submodule. Last one is recommended.
 
 One more thing needed is an config file `vagrant_config.json` inside of the htdocs folder. 
 This is where chef get's it's informations from.
@@ -41,9 +41,7 @@ This setup belongs to your defined `type` from your `vagrant_config.json`.
 
 ### TYPO3 Neos ###
 1. In your `vagrant_config.json` set `type` to `typo3-neos`
-2. `cd htdocs`
-3. `composer create-project --no-dev typo3/neos-base-distribution TYPO3-Neos-1.1`
-4. add 
+2. add 
 ```
   TYPO3:
     Flow:
@@ -51,7 +49,8 @@ This setup belongs to your defined `type` from your `vagrant_config.json`.
         subRequestPhpIniPathAndFilename: '/etc/php5/fpm/php.ini'
 ``` 
 to your global Settings.yaml
-- go to `http://example.com.dev/setup` and use your capitalized project name as your database and "root" for user and password
+- `vagrant ssh` into your VM and set `date.timezone` in your `/ec/php5/fpm/php.ini`
+- go to `http://example.com.dev/setup` and use your `nameClean` as your database name and "root" for user and password
 
 ## Development #
 My best practice is to use PhpStorm with "Deployment" set up an "Automatic Upload" enabled.
