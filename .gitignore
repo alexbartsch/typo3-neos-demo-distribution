@@ -2,6 +2,7 @@
 /.vagrant/
 /cookbooks/
 /tmp/
-/htdocs/
+/htdocs
 
 Cheffile.lock
+.gitmodules
